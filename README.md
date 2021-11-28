@@ -10,6 +10,9 @@ Optionally, the words are sorted according to reading order (top to bottom, left
 
 ![example](./doc/example.png)
 
+## Conda environemnt
+Have created a conda environment caleld word\_detector in hp laptop. Use that environment to run the script
+
 ## Installation
 
 * Go to the root level of the repository

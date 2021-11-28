@@ -1,0 +1,13 @@
+{'language': 'tamil', 'average_word_width': 347.10690191201616, 'average_text_height': 71.62958961604228, 'average_aspect_ratio': 4.8348175368702915, 'average_line_width': None}
+{'language': 'telugu', 'average_word_width': 238.7555979037637, 'average_text_height': 76.66412074160063, 'average_aspect_ratio': 3.1740904173647473, 'average_line_width': None}
+{'language': 'hindi', 'average_word_width': 130.13080938970802, 'average_text_height': 84.85482118134358, 'average_aspect_ratio': 1.5821619945274008, 'average_line_width': None}
+{'language': 'bangla', 'average_word_width': 162.9392318480427, 'average_text_height': 76.38809963175291, 'average_aspect_ratio': 2.151891151398487, 'average_line_width': None}
+{'language': 'urdu', 'average_word_width': None, 'average_text_height': 81.96416257444363, 'average_aspect_ratio': 11.990391708304786, 'average_line_width': 981.8797408839201}
+{'language': 'assamese', 'average_word_width': 86.92645293904573, 'average_text_height': 41.008062791580656, 'average_aspect_ratio': 2.136837480893178, 'average_line_width': None}
+{'language': 'punjabi', 'average_word_width': 132.19509747449118, 'average_text_height': 74.44178862876473, 'average_aspect_ratio': 1.8055909803287837, 'average_line_width': None}
+{'language': 'odia', 'average_word_width': 90.74204700131237, 'average_text_height': 37.26196328296898, 'average_aspect_ratio': 2.4491538231382446, 'average_line_width': None}
+{'language': 'meitei', 'average_word_width': 101.04129324137931, 'average_text_height': 39.83141517241379, 'average_aspect_ratio': 2.5813958898444906, 'average_line_width': None}
+{'language': 'malayalam', 'average_word_width': 381.59382659076647, 'average_text_height': 67.63023701456754, 'average_aspect_ratio': 5.614652551550374, 'average_line_width': None}
+{'language': 'kannada', 'average_word_width': 275.192557379544, 'average_text_height': 81.68858256206522, 'average_aspect_ratio': 3.401401042475953, 'average_line_width': None}
+{'language': 'marathi', 'average_word_width': 194.30823657318882, 'average_text_height': 83.3260334460281, 'average_aspect_ratio': 2.3819580919335017, 'average_line_width': None}
+{'language': 'gujarati', 'average_word_width': 170.60977796867093, 'average_text_height': 79.25690727961646, 'average_aspect_ratio': 2.188780605394795, 'average_line_width': None}
