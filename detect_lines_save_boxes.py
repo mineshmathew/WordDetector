@@ -128,7 +128,7 @@ def main():
             line_str = "\t".join ([str(v) for v in values_to_write])
             line_file_string += line_str
             line_file_string += "\n"
-        line_file_string.strip()
+        line_file_string = line_file_string.strip()
 
         #import pdb; pdb.set_trace()
         with open (lines_file, "w") as f:
