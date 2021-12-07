@@ -8,10 +8,9 @@ Even though the paper is from 1999, the method still achieves good results, is f
 The algorithm takes an **image containing words as input** and **outputs the detected words**.
 Optionally, the words are sorted according to reading order (top to bottom, left to right).
 
+Non maximum suppression (nms) implementation is taken from - https://github.com/bruceyang2012/nms\_python/
 ![example](./doc/example.png)
 
-## Conda environemnt
-Have created a conda environment caleld word\_detector in hp laptop. Use that environment to run the script
 
 ## Installation
 
@@ -19,7 +18,15 @@ Have created a conda environment caleld word\_detector in hp laptop. Use that en
 * Execute `pip install .`
 * Go to `tests/` and execute `pytest` to check if installation worked
 
-## Usage
+## Changes made from the original implementation  are
+
+- In sort\_multiline min\_words\_per\_line is set as 1
+- We use NMS to refine the detections returned by the original algorithm
+## Usage: given page image
+
+Use the script detect\_lines\_nms.py to detect words and group them to lines using the word detector and then apply NMS to get the final set of line bounding boxes. 
+
+## Usage: given text line image
 
 This example loads an image of a text line, prepares it for the detector (1), detects words (2), 
 sorts them (3), and finally shows the cropped words (4).
@@ -70,7 +77,7 @@ The package contains the following functions:
 For more details on the functions and their parameters use `help(function_name)`, e.g. `help(detect)`.
 
 
-## Algorithm
+## Algorithm for word detector
 
 The illustration below shows how the algorithm works:
 
@@ -88,7 +95,7 @@ The filter is in fact a low-pass, with different cut-off frequencies in x and y 
 ![kernel](./doc/kernel.png)
 
 
-## How to select parameters
+## How to select parameters for the word detector
 
 * The algorithm is **not scale-invariant**
     * The default parameters give good results for a text height of 25-50 pixels

@@ -105,7 +105,7 @@ def prepare_img(img: np.ndarray,
 
 def _cluster_lines(detections: List[DetectorRes],
                    max_dist: float = 0.7,
-                   min_words_per_line: int = 2) -> List[List[DetectorRes]]:
+                   min_words_per_line: int = 1) -> List[List[DetectorRes]]:
     # compute matrix containing Jaccard distances (which is a proper metric)
     num_bboxes = len(detections)
     dist_mat = np.ones((num_bboxes, num_bboxes))
@@ -134,7 +134,7 @@ def _cluster_lines(detections: List[DetectorRes],
 
 def sort_multiline(detections: List[DetectorRes],
                    max_dist: float = 0.7,
-                   min_words_per_line: int = 2) -> List[List[DetectorRes]]:
+                   min_words_per_line: int = 1) -> List[List[DetectorRes]]:
     """Cluster detections into lines, then sort the lines according to x-coordinates of word centers.
 
     Args:

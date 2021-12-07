@@ -21,9 +21,9 @@ def main():
     parser.add_argument('--data', type=Path, default=Path('../data/line'))
     parser.add_argument('--kernel_size', type=int, default=25)
     parser.add_argument('--sigma', type=float, default=11)
-    parser.add_argument('--theta', type=float, default=7)
+    #parser.add_argument('--theta', type=float, default=7)
     parser.add_argument('--min_area', type=int, default=100)
-    parser.add_argument('--img_height', type=int, default=50)
+    #parser.add_argument('--img_height', type=int, default=50)
     parsed = parser.parse_args()
 
     for fn_img in get_img_files(parsed.data):
@@ -34,13 +34,14 @@ def main():
 
         #resize page image to a new height so that text lines are of around 50 pixels in height
         height, width = img.shape[:2]
-        average_text_height_for_language = 67.63
-        img_height = int (height * average_text_height_for_language / 50 )
+        print ("original height is ", height)
+        average_text_height_for_language = 71.62
+        img_height = int (height *   50 / average_text_height_for_language )
 
-        average_aspect_ratio = 5.61
+        average_aspect_ratio = 4.83
         theta = average_aspect_ratio
 
-        
+        print ("new height is ", img_height)
         img = prepare_img(img, img_height)
         detections = detect(img,
                             kernel_size=parsed.kernel_size,
