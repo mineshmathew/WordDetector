@@ -6,8 +6,9 @@ from nms import non_max_suppression_slow, non_max_suppression_fast
 import cv2
 import matplotlib.pyplot as plt
 from path import Path
-
+import os
 from word_detector import detect, prepare_img, sort_multiline
+from stats import average_aspect_ratios, average_text_heights
 
 
 def get_img_files(data_dir: Path) -> List[Path]:
@@ -20,7 +21,8 @@ def get_img_files(data_dir: Path) -> List[Path]:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=Path, default=Path('../data/line'))
+    parser.add_argument('--data', required=True )
+    parser.add_argument('--language', required=True )
     parser.add_argument('--kernel_size', type=int, default=25)
     parser.add_argument('--sigma', type=float, default=11)
     #parser.add_argument('--theta', type=float, default=7)
@@ -34,16 +36,17 @@ def main():
         # load image and process it
         img = cv2.imread(fn_img)
 
-        #resize page image to a new height so that text lines are of around 50 pixels in height
+        #resize page image to a new height so that text lines are of around 30 pixels in height
         height, width = img.shape[:2]
-        print ("original height is ", height)
-        average_text_height_for_language = 81.85
-        img_height = int (height *   50 / average_text_height_for_language )
+        #print ("original height is ", height)
+        average_text_height_for_language = average_text_heights[parsed.language]
 
-        average_aspect_ratio = 3.0
-        theta = average_aspect_ratio
+        
+        img_height = int (height *   30 / average_text_height_for_language )
 
-        print ("new height is ", img_height)
+        theta = average_aspect_ratios [parsed.language]
+        #import pdb; pdb.set_trace()
+        #print ("new height is ", img_height)
         img = prepare_img(img, img_height)
         detections = detect(img,
                             kernel_size=parsed.kernel_size,
@@ -107,26 +110,36 @@ def main():
         ##----------------------------NMS on line boxes ---------------------------------
 
         line_boxes =  np.array (line_bbs)
-        
         _, boxes_after_nms = non_max_suppression_fast(line_boxes, probs=None, overlapThresh=0.05)
         
         
+        ## ------------------saving boxes ---------------------------------------------------
+        file_name_pattern = "_scale_space.lines"
+        image_name = os.path.basename (fn_img)
+        base_name = os.path.splitext (image_name)[0]
+        lines_file = os.path.join (parsed.data, base_name + file_name_pattern)
         
-        
-        #-------------------------------Drawing boxes --------------------------------------
+        #import pdb; pdb.set_trace() 
 
-        img1 = img.copy()
-        for bb in line_boxes:
-            cv2.rectangle (img1, (bb[0], bb[1]), (bb[2], bb[3]), (0,0,255), 2 )
-        for bb in boxes_after_nms:
-            cv2.rectangle (img, (bb[0], bb[1]), (bb[2], bb[3]), (0,0,255), 2 )
-        
-        cv2.imwrite("/home/minesh/Downloads/without_line_nms.jpg", img1)
-        cv2.imwrite("/home/minesh/Downloads/with_line_nms.jpg", img)
+        line_file_string = ""
+        for i, each_line in enumerate (boxes_after_nms):
+            count = i + 1
+            values_to_write = [count, each_line[0], each_line[1], each_line[2], each_line[3]]
+            line_str = "\t".join ([str(v) for v in values_to_write])
+            line_file_string += line_str
+            line_file_string += "\n"
+        line_file_string.strip()
+
+        #import pdb; pdb.set_trace()
+        with open (lines_file, "w") as f:
+            f.write (line_file_string)
+
+
+
+
 
         
-        import pdb; pdb.set_trace() 
-
+        
 
 
 if __name__ == '__main__':
